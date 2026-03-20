@@ -6,13 +6,14 @@ A super simple FastAPI application that allows students to view and sign up for 
 
 - View all available extracurricular activities
 - Sign up for activities
+- Persistent storage with SQLite (data survives app restarts)
 
 ## Getting Started
 
 1. Install the dependencies:
 
    ```
-   pip install fastapi uvicorn
+   pip install -r ../requirements.txt
    ```
 
 2. Run the application:
@@ -47,4 +48,14 @@ The application uses a simple data model with meaningful identifiers:
    - Name
    - Grade level
 
-All data is stored in memory, which means data will be reset when the server restarts.
+3. **Registrations** - Relationship between students and activities:
+   - `activity_id`
+   - `user_id`
+   - `created_at`
+
+## Persistence and Seed Logic
+
+- Data is stored in `src/activities.db`.
+- On startup, the app creates tables if they do not exist.
+- On first run only (empty `activities` table), starter activities and participant registrations are seeded.
+- On subsequent restarts, existing data is preserved.
